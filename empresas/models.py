@@ -3,6 +3,7 @@ from uuid import uuid4
 from django_cpf_cnpj.fields import CPFField, CNPJField
 from django.core.validators import RegexValidator
 
+
 # Create your models here.
 
 class Empresas(models.Model):
