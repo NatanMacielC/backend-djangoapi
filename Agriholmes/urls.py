@@ -20,10 +20,14 @@ from django.urls import path, include
 from rest_framework import routers
 from empresas.api import viewsets as empresasviewsets
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from fullcalendar import views as calendarviewsets
 
 route = routers.DefaultRouter()
 
 route.register(r'empresas', empresasviewsets.EmpresasViewSet, basename="Empresas")
+route.register(r'calendar', calendarviewsets.CalendarViewSet, basename="Calendario")
+route.register(r'feriado', calendarviewsets.FeriadoViewSet, basename="Feriado")
+
 
 urlpatterns = [
     # django admin
@@ -33,4 +37,5 @@ urlpatterns = [
     # authentication
     path('token/', TokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
+    path(r'^', include('fullcalendar.urls')),
 ]

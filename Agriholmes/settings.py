@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_cpf_cnpj',
     'empresas',
     'rest_framework',
+    'fullcalendar',
 ]
 
 MIDDLEWARE = [
