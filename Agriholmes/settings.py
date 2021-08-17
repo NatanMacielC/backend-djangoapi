@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Custom User
-AUTH_USER_MODEL = 'users.User' # Novo
+AUTH_USER_MODEL = 'usuarios.User' # Novo
 
 LOGIN_URL = '/'
 
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     # apps
     'empresas',
     'fullcalendar',
-    'users',
+    'usuarios',
     # modules
     'django_cpf_cnpj',
     'rest_framework',
@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'Agriholmes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'mssql',
         'NAME': 'agriholmes-back',
         'USER': 'pontual-agriholmes',
         'PASSWORD': 'x7@rTcMsr*cx',
