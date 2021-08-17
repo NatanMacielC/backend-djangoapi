@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom User
+AUTH_USER_MODEL = 'users.User' # Novo
+
+LOGIN_URL = '/'
+
 
 # Application definition
 
@@ -39,10 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django_cpf_cnpj',
+    # apps
     'empresas',
-    'rest_framework',
     'fullcalendar',
+    'users',
+    # modules
+    'django_cpf_cnpj',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +89,17 @@ WSGI_APPLICATION = 'Agriholmes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'agriholmes-back',
+        'USER': 'pontual-agriholmes',
+        'PASSWORD': 'x7@rTcMsr*cx',
+        'HOST': 'pontual-agriholmes-server.database.windows.net',
+        'PORT': '1433',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
 }
 
 
