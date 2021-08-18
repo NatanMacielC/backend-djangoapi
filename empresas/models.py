@@ -6,6 +6,7 @@ from django.core.validators import RegexValidator
 
 # Create your models here.
 
+#cadastro de empresas
 class Empresas(models.Model):
 
     id_empresa = models.UUIDField(primary_key=True, default=uuid4, editable=False)

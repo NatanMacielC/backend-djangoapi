@@ -2,7 +2,9 @@ from django.db import models
 from uuid import uuid4
 
 # Create your models here.
-    
+
+
+# cadastro dos feriados    
 class FeriadoCalendario(models.Model):
     dataFeriado = models.CharField(max_length=100, null=False, blank=False)
     descricao = models.CharField(max_length=100)
@@ -10,6 +12,7 @@ class FeriadoCalendario(models.Model):
         return "%s %s" % (self.dataFeriado, self.descricao)
 
 
+# cadastro dos calendários
 class Calendario(models.Model):
     id_calendario = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     tipo = models.CharField(max_length=80)

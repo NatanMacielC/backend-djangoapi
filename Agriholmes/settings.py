@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'empresas',
     'fullcalendar',
     'usuarios',
+    'parametrização',
     # modules
     'django_cpf_cnpj',
     'rest_framework',

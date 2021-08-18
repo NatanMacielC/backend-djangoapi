@@ -1,5 +1,4 @@
 from enum import unique
-from django.core.validators import RegexValidator
 from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser, PermissionsMixin, BaseUserManager
@@ -13,6 +12,8 @@ from django.core.mail import send_mail
 
 
 # Create your models here.
+
+# superuser
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
@@ -34,37 +35,42 @@ class UserManager(BaseUserManager):
         return user
 
 
-
+# usuário
 class User(AbstractUser):
 
-    uuid = models.UUIDField(_("User UUID"), editable=False, default=uuid.uuid4)
-    username = models.CharField(_('username'), max_length=15, unique=True, 
-    help_text=_('Required. 15 characters or fewer. Letters, numbers and @/./+/-/_ characters'), 
-    validators=[ validators.RegexValidator(re.compile('^[\w.@+-]+$'), _('Enter a valid username.'), _('invalid'))])
+    ID = models.UUIDField(_("User UUID"), editable=False, default=uuid.uuid4)
 
-    nome = models.CharField(_('nome'), max_length=30, blank=False, null=False)
+    Nome = models.CharField(max_length=150, null=False)
 
-    email = models.EmailField(_('email'), max_length=255, unique=True, blank=False, null=False)
+    Email = models.EmailField(max_length=150, null=False, unique=True)
 
-    cpf = models.CharField(_('CPF'), max_length=11, unique=True, blank=False, null=False)
+    CPF = models.CharField(max_length=20, null=False)
 
-    phoneNumberRegex = RegexValidator(regex = r"^\+?1?\d{8,15}$")
+    Telefone = models.CharField(max_length=20, null=True)
 
-    phoneNumber = models.CharField(_('telefone'),validators = [phoneNumberRegex], max_length = 16, unique = True)
+    Celular = models.CharField(max_length=20, null=True)
 
-    adPhoneNumber = models.CharField(_('celular'),validators = [phoneNumberRegex], max_length = 16, unique = True)
+    NomeUsuario = models.CharField(max_length=150, null=False)
 
-    create_at =  models.DateField(auto_now_add=True)
+    ClienteID = models.UUIDField(_("User UUID"), editable=False, default=uuid.uuid4)
+
+    DataCadastro =  models.DateField(auto_now_add=True)
+
+    DataCadastro =  models.DateField(null=True)
 
     is_trusty = models.BooleanField(_('trusty'), default=False,
  help_text=_('Designates whether this user has confirmed his account.'))
 
+    Ativo = models.BooleanField(default=True, null=True)
+
+    Perfil = models.CharField(max_length=150, null=False)
+
+    Senha = models.CharField(max_length=50, null=True)
 
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'nome', 'cpf', 'phoneNumber']
 
-    objects = UserManager ()
+    USERNAME_FIELD = 'Email'
+    REQUIRED_FIELDS = ['Nome', 'CPF', 'NomeUsuario']
 
     class Meta:
         verbose_name = _('user')
@@ -72,6 +78,3 @@ class User(AbstractUser):
     def get_full_name(self):
         full_name = '%s %s' % (self.nome)
         return full_name.strip()
-
-    def email_user(self, subject, message, from_email=None):
-     send_mail(subject, message, from_email, [self.email])
