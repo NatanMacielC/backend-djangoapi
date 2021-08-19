@@ -22,6 +22,8 @@ from empresas.api import viewsets as empresasviewsets
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from fullcalendar import views as calendarviewsets
 from parametrização import views as parameterviewsets
+from ObrigacaoAcessoria import views as obrigacaoacessoriasviewsets
+from fisco import views as fiscoviewsets
 
 route = routers.DefaultRouter()
 
@@ -30,6 +32,8 @@ route.register(r'calendar', calendarviewsets.CalendarViewSet, basename="Calendar
 route.register(r'feriado', calendarviewsets.FeriadoViewSet, basename="Feriado")
 route.register(r'evento', parameterviewsets.EventoViewSet, basename="Evento")
 route.register(r'regras', parameterviewsets.RegrasViewSet, basename="Regras")
+route.register(r'obrigacaoacessoria', obrigacaoacessoriasviewsets.ObrigacaoAcessoriaViewSet, basename="Obrigações Acessorias")
+route.register(r'fisco', fiscoviewsets.FiscoViewSet, basename="Fisco")
 
 
 urlpatterns = [
@@ -42,4 +46,5 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view()),
     path(r'^', include('fullcalendar.urls')),
     path(r'^', include('parametrização.urls')),
+    path(r'^', include('fisco.urls')),
 ]

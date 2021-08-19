@@ -3,5 +3,5 @@ from  empresas import models
 
 class EmpresasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Empresas
+        model = models.Empresa
         fields = '__all__'

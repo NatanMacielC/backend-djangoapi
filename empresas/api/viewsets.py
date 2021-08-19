@@ -4,4 +4,4 @@ from empresas import models
 
 class EmpresasViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.EmpresasSerializer
-    queryset = models.Empresas.objects.all()
+    queryset = models.Empresa.objects.all()

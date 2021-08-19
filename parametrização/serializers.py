@@ -12,5 +12,5 @@ class RegraSerializer(serializers.ModelSerializer):
 
     class Meta:
         
-        model = models.Regras
+        model = models.Regra
         fields = '__all__'

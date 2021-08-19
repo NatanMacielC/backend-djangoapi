@@ -49,8 +49,11 @@ INSTALLED_APPS = [
     'fullcalendar',
     'usuarios',
     'parametrização',
+    'ObrigacaoAcessoria',
+    'PlanoContas',
+    'Tributos',
+    'fisco',
     # modules
-    'django_cpf_cnpj',
     'rest_framework',
 ]
 
@@ -91,7 +94,7 @@ WSGI_APPLICATION = 'Agriholmes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'agriholmes-back',
+        'NAME': 'pontual-agriholmes-bd',
         'USER': 'pontual-agriholmes',
         'PASSWORD': 'x7@rTcMsr*cx',
         'HOST': 'pontual-agriholmes-server.database.windows.net',

@@ -1,30 +1,104 @@
-from django.db import models
-
-# Create your models here.
+from ObrigacaoAcessoria.models import ObrigacaoAcessoria
 from django.db import models
 from uuid import uuid4
+from django.utils import timezone
 
 # Create your models here.
     
 # cadastro das regras
-class Regras(models.Model):
-    id_regra = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    regra = models.CharField(max_length=250, null=False, blank=False)
-    tipo = models.CharField(max_length=100)
-    def __str__(self):
-        return "%s %s" % (self.regra, self.tipo)
+class Regra(models.Model):
+
+    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+
+    Codigo = models.CharField(max_length=50, null=False)
+
+    Nome = models.CharField(max_length=100, null=True)
+
+    Descricao = models.CharField(max_length=150, null=True)
+
+    DataCadastro = models.DateTimeField(editable=False)
+    
+    DataAlteracao= models.DateTimeField(null=True)
+
+    Ativo = models.BooleanField(default=True, null=True)
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(Regra, self).save(*args, **kwargs)
+
 
 
 # cadastro dos eventos
 class Evento(models.Model):
-    id_Evento = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    tipo = models.CharField(max_length=80)
-    descricao = models.CharField(max_length=250, null=True, blank=True)
-    parametrizacao = models.ForeignKey(Regras, on_delete=models.CASCADE)
-    def __str__(self):
-            return self.tipo, self.descricao, self.parametrizacao
 
-    class Meta:
-        ordering = ['tipo', 'descricao', 'parametrizacao']
+    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
 
+    Nome = models.CharField(max_length=100, null=True)
     
+    # FiscoID = models.ForeignKey(Fisco, on_delete=models.CASCADE, null=False)
+
+    # GeracaoCreditoID = models.ForeignKey(Fisco, on_delete=models.CASCADE, null=False)
+
+    # RetencaoFonteID = models.ForeignKey(Fisco, on_delete=models.CASCADE, null=False)
+
+    # PeriodicidadeID = models.ForeignKey(Fisco, on_delete=models.CASCADE, null=False)
+
+    ObrigacaoAcessorialID = models.ForeignKey(ObrigacaoAcessoria, on_delete=models.CASCADE, null=False)
+
+    ContaReferecial = models.CharField(max_length=20, null=True)
+
+    DescContaReferencial = models.CharField(max_length=150, null=True)
+
+    Aliquota = models.DecimalField(max_digits=38, decimal_places=38, null=True)
+
+    RegimeTributario = models.CharField(max_length=50, null=True)
+
+    DataCadastro = models.DateTimeField(editable=False)
+    
+    DataAlteracao= models.DateTimeField()
+
+    Ativo = models.BooleanField(default=True, null=True)
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(Evento, self).save(*args, **kwargs)
+
+
+
+# execução da parametrização
+class Parametrizacao(models.Model):
+
+    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+
+    EventoID = models.ForeignKey(Evento, on_delete=models.CASCADE, null=False)
+
+    Nome = models.CharField(max_length=50, null=True)
+    
+    DataCadastro = models.DateTimeField(editable=False)
+    
+    DataAlteracao= models.DateTimeField()
+
+    Ativo = models.BooleanField(default=True, null=True)
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(Parametrizacao, self).save(*args, **kwargs)
+
+
+# a parametrização regra
+class ParametrizacaoRegra(models.Model):
+
+    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+
+    ParametrizacaoID = models.ForeignKey(Parametrizacao, on_delete=models.CASCADE, null=False)
+
+    RegraID = models.ForeignKey(Regra, on_delete=models.CASCADE, null=False)

@@ -3,7 +3,7 @@ from django.db import models
 
 # Register your models here.
 
-from .models import Regras, Evento
+from .models import Regra, Evento
 
-admin.site.register(Regras)
+admin.site.register(Regra)
 admin.site.register(Evento)
