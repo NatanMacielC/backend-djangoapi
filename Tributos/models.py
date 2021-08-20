@@ -1,5 +1,4 @@
 from django.db import models
-from uuid import uuid4
 from django.db.models.deletion import CASCADE
 from django.utils import timezone
 from empresas.models import Empresa
@@ -10,7 +9,7 @@ from empresas.models import Empresa
 
 class RegimeTributario(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     Nome = models.CharField(max_length=50, null=True)
 
@@ -22,7 +21,7 @@ class RegimeTributario(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(RegimeTributario, self).save(*args, **kwargs)
@@ -32,7 +31,7 @@ class RegimeTributario(models.Model):
 # Empresa-RegimeTributario
 class EmpresaRegimeTributario(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     EmpresaID = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=False)
 
@@ -43,7 +42,7 @@ class EmpresaRegimeTributario(models.Model):
  # Esteira
 class Esteira(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     EmpresaID = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=False)
 
@@ -54,7 +53,7 @@ class Esteira(models.Model):
 # Controle de Tributos
 class ControleTributos(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     CodigoContabil = models.CharField(max_length=50, null=True)
 
@@ -92,7 +91,7 @@ class ControleTributos(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(RegimeTributario, self).save(*args, **kwargs)
@@ -104,7 +103,7 @@ class ControleTributos(models.Model):
 # Bloco-Campo Config
 class BlocoCampoConfig(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     Bloco = models.CharField(max_length=50, null=True)
 
@@ -128,7 +127,7 @@ class BlocoCampoConfig(models.Model):
 # Esteira-Campo
 class EsteiraCampo(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     EsteiraID = models.ForeignKey(Esteira, on_delete=models.CASCADE, null=False)
 

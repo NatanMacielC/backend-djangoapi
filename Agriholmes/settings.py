@@ -27,8 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Custom User
-AUTH_USER_MODEL = 'usuarios.User' # Novo
 
 LOGIN_URL = '/'
 
@@ -47,14 +45,16 @@ INSTALLED_APPS = [
     # apps
     'empresas',
     'fullcalendar',
-    'usuarios',
     'parametrização',
     'ObrigacaoAcessoria',
     'PlanoContas',
     'Tributos',
     'fisco',
+    'Cliente',
+    'usuario',
     # modules
     'rest_framework',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -84,6 +84,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'usuario.Usuario'
 
 WSGI_APPLICATION = 'Agriholmes.wsgi.application'
 
@@ -130,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
 }
 
 

@@ -1,10 +1,9 @@
 from django.db import models
-from uuid import uuid4
 
 # Create your models here.
 class Fisco(models.Model):
 
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    id = models.AutoField(primary_key=True, editable=False)
     nome = models.CharField(max_length=50)
 
     RONDONIA = 'RO'
@@ -73,9 +72,9 @@ class Fisco(models.Model):
         ANTERIOR = 1, 'Dia útil anterior'
 
     regraTributo = models.IntegerField(choices=Regras.choices)
-    dataCadastro = models.DateField(auto_now_add=True)
-    dataAlteracao = models.DateField()
-    ativo = models.BooleanField(default=True)
+    dataCadastro = models.DateField(auto_now_add=True, editable=False, null=False)
+    dataAlteracao = models.DateField(auto_now=True, null=True)
+    ativo = models.BooleanField(default=True, null=True)
     def __str__(self):
             return self.nome, self.estado, self.municipio, self.vencimento, self.regraTributo, self.dataCadastro, self.dataAlteracao, self.ativo
 

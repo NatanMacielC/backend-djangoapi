@@ -1,5 +1,4 @@
 from django.db import models
-from uuid import uuid4
 from django.utils import timezone
 from empresas.models import Empresa
 
@@ -9,7 +8,7 @@ from empresas.models import Empresa
 
 class PlanoContasReferencial(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     Codigo = models.CharField(max_length=50, null=False)
 
@@ -33,7 +32,7 @@ class PlanoContasReferencial(models.Model):
 # Plano Conta-Empresa
 class EmpresaPlanoContas(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     EmpresaID = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=False)
 

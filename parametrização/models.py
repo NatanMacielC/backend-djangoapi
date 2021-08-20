@@ -1,6 +1,5 @@
 from ObrigacaoAcessoria.models import ObrigacaoAcessoria
 from django.db import models
-from uuid import uuid4
 from django.utils import timezone
 
 # Create your models here.
@@ -8,7 +7,7 @@ from django.utils import timezone
 # cadastro das regras
 class Regra(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     Codigo = models.CharField(max_length=50, null=False)
 
@@ -24,7 +23,7 @@ class Regra(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(Regra, self).save(*args, **kwargs)
@@ -34,7 +33,7 @@ class Regra(models.Model):
 # cadastro dos eventos
 class Evento(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     Nome = models.CharField(max_length=100, null=True)
     
@@ -64,7 +63,7 @@ class Evento(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(Evento, self).save(*args, **kwargs)
@@ -74,7 +73,7 @@ class Evento(models.Model):
 # execução da parametrização
 class Parametrizacao(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     EventoID = models.ForeignKey(Evento, on_delete=models.CASCADE, null=False)
 
@@ -88,7 +87,7 @@ class Parametrizacao(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(Parametrizacao, self).save(*args, **kwargs)
@@ -97,7 +96,7 @@ class Parametrizacao(models.Model):
 # a parametrização regra
 class ParametrizacaoRegra(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     ParametrizacaoID = models.ForeignKey(Parametrizacao, on_delete=models.CASCADE, null=False)
 

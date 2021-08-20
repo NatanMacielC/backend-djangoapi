@@ -1,5 +1,4 @@
 from django.db import models
-from uuid import uuid4
 from django.utils import timezone
 
 # Create your models here.
@@ -8,7 +7,7 @@ from django.utils import timezone
 
 class Empresa(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     CNPJ = models.CharField(max_length=20, null=False)
 
@@ -62,7 +61,7 @@ class Empresa(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(Empresa, self).save(*args, **kwargs)

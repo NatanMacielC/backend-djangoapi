@@ -1,5 +1,4 @@
 from django.db import models
-from uuid import uuid4
 from Tributos.models import BlocoCampoConfig
 from django.utils import timezone
 
@@ -9,7 +8,7 @@ from django.utils import timezone
 
 class ObrigacaoAcessoria(models.Model):
 
-    ID = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
 
     Versao = models.CharField(max_length=20, null=True)
 
@@ -41,7 +40,7 @@ class ObrigacaoAcessoria(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
+        if not self.ID:
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(ObrigacaoAcessoria, self).save(*args, **kwargs)

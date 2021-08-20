@@ -1,5 +1,4 @@
 from django.db import models
-from uuid import uuid4
 
 # Create your models here.
 
@@ -14,7 +13,7 @@ class FeriadoCalendario(models.Model):
 
 # cadastro dos calendários
 class Calendario(models.Model):
-    id_calendario = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    ID = models.AutoField(primary_key=True, editable=False)
     tipo = models.CharField(max_length=80)
     estado = models.CharField(max_length=80)
     municipio = models.CharField(max_length=100)
