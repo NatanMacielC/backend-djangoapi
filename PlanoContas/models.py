@@ -1,42 +1,32 @@
 from django.db import models
-from django.utils import timezone
-from empresas.models import Empresa
-
-# Create your models here.
-    
+from django.utils import timezone 
 
 
-class PlanoContasReferencial(models.Model):
+class Planocontasreferencial(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  
+    codigo = models.CharField(db_column='Codigo', max_length=50)  
+    descricao = models.CharField(db_column='Descricao', max_length=150)  
+    datacadastro = models.DateTimeField(db_column='DataCadastro')  
+    dataalteracao = models.DateTimeField(db_column='DataAlteracao', blank=True, null=True)  
+    ativo = models.BooleanField(db_column='Ativo', blank=True, null=True)  
 
-    ID = models.AutoField(primary_key=True, editable=False)
-
-    Codigo = models.CharField(max_length=50, null=False)
-
-    Descricao = models.CharField(max_length=150, null=False)
-
-    DataCadastro = models.DateTimeField(editable=False)
-    
-    DataAlteracao= models.DateTimeField(null=True)
-
-    Ativo = models.BooleanField(default=True, null=True)
-
-    def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
-        if not self.id:
-            self.created = timezone.now()
-        self.modified = timezone.now()
-        return super(PlanoContasReferencial, self).save(*args, **kwargs)
+    class Meta:
+        managed = False
+        db_table = 'PlanoContasReferencial'
 
 
 
-# Plano Conta-Empresa
-class EmpresaPlanoContas(models.Model):
+class PlanocontasPlanocontasreferencial(models.Model):
+    id = models.CharField(db_column='ID', primary_key=True, max_length=32)  
+    codigo = models.CharField(db_column='Codigo', max_length=50)  
+    descricao = models.CharField(db_column='Descricao', max_length=150)  
+    datacadastro = models.DateTimeField(db_column='DataCadastro', auto_now_add=True)  
+    dataalteracao = models.DateTimeField(db_column='DataAlteracao', auto_now=True, blank=True, null=True)  
+    ativo = models.BooleanField(db_column='Ativo', default=True)  
 
-    ID = models.AutoField(primary_key=True, editable=False)
-
-    EmpresaID = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=False)
-
-    PlanoContasReferencialID = models.ForeignKey(PlanoContasReferencial, on_delete=models.CASCADE, null=False)
+    class Meta:
+        managed = False
+        db_table = 'PlanoContas_planocontasreferencial'
 
 
 

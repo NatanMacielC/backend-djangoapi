@@ -2,9 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-
-
-from Cliente.models import Cliente
+from cliente.models import Cliente
 
 # Create your models here.
 
@@ -43,33 +41,21 @@ class MyUserManager(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
-
-    ID = models.AutoField(primary_key=True, null=False, editable=False)
-
-    Nome = models.CharField(max_length=150, null=False)
-
-    email = models.EmailField(verbose_name="email", max_length=150, null=False, unique=True)
-
-    CPF = models.CharField(max_length=20, null=False)
-
-    Telefone = models.CharField(max_length=20, null=True)
-
-    Celular = models.CharField(max_length=20, null=True)
-
-    NomeUsuario = models.CharField(max_length=50, null=False)
-
-    DataCadastro = models.DateField(auto_now_add=True, editable=False, null=False)
-
-    DataAlteracao = models.DateField(auto_now=True, null=True)
-
-    Ativo = models.BooleanField(default=True, null=True)
-
-    Perfil = models.CharField(max_length=50, null=True)
-
+    id = models.AutoField(db_column='ID', primary_key=True) 
+    nome = models.CharField(db_column='Nome',max_length=150, null=False)
+    email = models.EmailField(db_column='Email', max_length=150, null=False, unique=True)
+    cpf = models.CharField(db_column='CPF', max_length=20, null=False)
+    telefone = models.CharField(db_column='Telefone', max_length=20, null=True)
+    celular = models.CharField(db_column='Celular', max_length=20, null=True)
+    nomeusuario = models.CharField(db_column='NomeUsuario', max_length=50, null=False)
+    clienteid = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='ClienteID')
+    datacadastro = models.DateField(db_column='DataCadastro', auto_now_add=True, null=False, blank=False)
+    dataalteracao = models.DateField(db_column='DataAlteracao', auto_now=True, null=True, blank=True)
+    ativo = models.BooleanField(db_column='Ativo', default=True, null=True, blank=True)
+    perfil = models.CharField(db_column='Perfil', max_length=50)
+    senha = models.CharField(db_column='Senha', max_length=50, null=True, blank=True)
     is_admin = models.BooleanField(default=False)
-
     is_staff = models.BooleanField(default=False)
-
     is_superuser = models.BooleanField(default=False)
 
     objects = MyUserManager()
@@ -86,6 +72,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     
     def has_module_perms(self, app_module):
     	return True
+
+    class Meta:
+        managed = False
+        db_table = 'Usuario'
         
         
         

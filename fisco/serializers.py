@@ -8,3 +8,10 @@ class FiscoSerializer(serializers.ModelSerializer):
         model = models.Fisco
         fields = '__all__'
 
+class FiscocalendarioSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+
+        model = models.Fiscocalendario
+        fields = '__all__'
+
