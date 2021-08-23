@@ -90,6 +90,7 @@ route.register(r'FiscoCalendario', fiscoviewsets.FiscocalendarioViewSet, basenam
 # Plano Contas
 route.register(r'PlanocontasPlanocontasreferencial', planocontasviewsets.PlanocontasPlanocontasreferencialViewSet, basename="PlanocontasPlanocontasreferencial")
 route.register(r'Planocontasreferencial', planocontasviewsets.PlanocontasreferencialViewSet, basename="Planocontasreferencial")
+route.register(r'Planocontasitem', planocontasviewsets.PlanocontasitemViewSet, basename="Planocontasitem")
 
 # Tributos
 route.register(r'RegimeTributario', tributosviewsets.RegimeTributarioViewSet, basename="RegimeTributario")

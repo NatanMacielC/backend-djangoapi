@@ -14,3 +14,10 @@ class PlanocontasreferencialSerializer(serializers.ModelSerializer):
         
         model = models.Planocontasreferencial
         fields = '__all__'
+
+class PlanocontasitemSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        
+        model = models.Planocontasitem
+        fields = '__all__'
