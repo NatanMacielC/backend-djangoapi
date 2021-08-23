@@ -14,8 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Usuario',
             fields=[
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
+                ('password', models.CharField(blank=True, db_column='Senha', max_length=50, null=True)),
                 ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
                 ('nome', models.CharField(db_column='Nome', max_length=150)),
                 ('email', models.EmailField(db_column='Email', max_length=150, unique=True)),
@@ -27,10 +26,6 @@ class Migration(migrations.Migration):
                 ('dataalteracao', models.DateField(auto_now=True, db_column='DataAlteracao', null=True)),
                 ('ativo', models.BooleanField(blank=True, db_column='Ativo', default=True, null=True)),
                 ('perfil', models.CharField(db_column='Perfil', max_length=50)),
-                ('senha', models.CharField(blank=True, db_column='Senha', max_length=50, null=True)),
-                ('is_admin', models.BooleanField(default=False)),
-                ('is_staff', models.BooleanField(default=False)),
-                ('is_superuser', models.BooleanField(default=False)),
             ],
             options={
                 'db_table': 'Usuario',

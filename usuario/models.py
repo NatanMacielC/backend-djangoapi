@@ -7,7 +7,7 @@ from cliente.models import Cliente
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
-    def _create_user(self, email, password, **extra_fields):
+    def _create_user(self, email, password=None, **extra_fields):
         values = [email, password]
         field_value_map = dict(zip(self.model.REQUIRED_FIELDS, values))
         for field_name, value in field_value_map.items():
@@ -23,12 +23,12 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, password=None, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):     
+    def create_superuser(self, email, password=None, **extra_fields):     
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -37,7 +37,7 @@ class MyUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, password)
+        return self._create_user(email, password=None)
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -48,15 +48,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     telefone = models.CharField(db_column='Telefone', max_length=20, null=True)
     celular = models.CharField(db_column='Celular', max_length=20, null=True)
     nomeusuario = models.CharField(db_column='NomeUsuario', max_length=50, null=False)
-    clienteid = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='ClienteID')
     datacadastro = models.DateField(db_column='DataCadastro', auto_now_add=True, null=False, blank=False)
     dataalteracao = models.DateField(db_column='DataAlteracao', auto_now=True, null=True, blank=True)
     ativo = models.BooleanField(db_column='Ativo', default=True, null=True, blank=True)
     perfil = models.CharField(db_column='Perfil', max_length=50)
-    senha = models.CharField(db_column='Senha', max_length=50, null=True, blank=True)
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
 
     objects = MyUserManager()
     
@@ -73,9 +68,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def has_module_perms(self, app_module):
     	return True
 
-    class Meta:
-        managed = False
-        db_table = 'Usuario'
         
         
         

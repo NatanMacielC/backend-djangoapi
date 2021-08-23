@@ -21,7 +21,7 @@ from django.urls import path, include
 # views
 from empresa.api import viewsets as empresaviewsets
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from calendario import views as calendarviewsets
+from calendario import viewsets as calendarviewsets
 from parametrização import views as parameterviewsets
 from fisco import views as fiscoviewsets
 from cliente import views as clienteviewsets
