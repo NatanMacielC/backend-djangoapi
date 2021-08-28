@@ -45,6 +45,9 @@ class Planocontasitem(models.Model):
         dataalteracao = models.DateTimeField(db_column='DataAlteracao', auto_now=True, blank=True, null=True)  
         ativo = models.BooleanField(db_column='Ativo', default=True, blank=True, null=True)   
 
+        class Meta:
+            managed = False
+            db_table = 'PlanoContasItem'
 
 
 

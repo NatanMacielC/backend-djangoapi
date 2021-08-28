@@ -57,6 +57,7 @@ route.register(r'GrupoEmpresa', empresaviewsets.GrupoempresaViewSet, basename="G
 # Calendario
 route.register(r'Calendario', calendarviewsets.CalendarioViewSet, basename="Calendario")
 route.register(r'CalendarioFeriado', calendarviewsets.CalendarioferiadoViewSet, basename="Feriado")
+route.register(r'CalendarioFeriadoImport', calendarviewsets.CalendarioferiadoimportViewSet, basename="CalendarioFeriadoImport")
 
 # Cliente
 route.register(r'Cliente', clienteviewsets.ClienteViewSet, basename="Cliente")

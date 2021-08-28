@@ -14,3 +14,10 @@ class CalendarioferiadoSerializer(serializers.ModelSerializer):
         
         model = models.Calendarioferiado
         fields = '__all__'
+
+class CalendarioferiadoimportSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+
+        model = models.CalendarioFeriadoImport
+        fields = '__all__'

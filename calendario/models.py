@@ -35,12 +35,21 @@ class Calendarioferiado(models.Model):
     ativo = models.BooleanField(db_column='Ativo', blank=True, null=True)  
     descricao = models.CharField(db_column='Descricao', max_length=150, blank=True, null=True)  
 
-    def __str__(self):
-            return self.dia +  '/' + self.mes + '/'+ self.ano + '/' + self.descricao
-
     class Meta:
         managed = False
         db_table = 'CalendarioFeriado'
+
+class CalendarioFeriadoImport(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  
+    ano = models.IntegerField(db_column='Ano', blank=True, null=True)  
+    mes = models.IntegerField(db_column='Mes', blank=True, null=True)  
+    dia = models.IntegerField(db_column='Dia', blank=True, null=True)  
+    datacadastro = models.DateTimeField(db_column='DataCadastro', auto_now_add=True)  
+    dataalteracao = models.DateTimeField(db_column='DataAlteracao', auto_now=True, blank=True, null=True)  
+    ativo = models.BooleanField(db_column='Ativo', default=True, blank=True, null=True)  
+    descricao = models.CharField(db_column='Descricao', max_length=150, blank=True, null=True)  
+
+
     
 
     

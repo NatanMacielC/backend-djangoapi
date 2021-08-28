@@ -14,7 +14,7 @@ class Fisco(models.Model):
     ativo = models.BooleanField(db_column='Ativo', blank=True, null=True)  
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Fisco'
 
 
@@ -27,20 +27,6 @@ class Fiscocalendario(models.Model):
         managed = False
         db_table = 'FiscoCalendario'
 
-class Fiscofisco(models.Model):
-    id = models.CharField(db_column='id', primary_key=True, max_length=32)  
-    nome = models.CharField(db_column='nome', max_length=50)  
-    estado = models.CharField(db_column='estado', max_length=2)  
-    municipio = models.CharField(db_column='municipio', max_length=150)  
-    vencimento = models.DateTimeField(db_column='vencimento')  
-    regratributo = models.IntegerField(db_column='regraTributo')  
-    datacadastro = models.DateTimeField(db_column='dataCadastro', auto_now_add=True)  
-    dataalteracao = models.DateTimeField(db_column='dataAlteracao', auto_now=True, blank=True, null=True)  
-    ativo = models.BooleanField(db_column='ativo', blank=True, null=True)  
-
-    class Meta:
-        managed = False
-        db_table = 'fisco_fisco'
 
 
 
